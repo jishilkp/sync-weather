@@ -1,0 +1,42 @@
+.container {
+  text-align: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 45%;
+  transform: translateY(-50%);
+  background-color: cornflowerblue;
+}
+
+.temp {
+  font-size: 80px;
+  line-height: 26px;
+  font-weight: bold;
+  margin-top: 20px;
+  color: white;
+}
+
+.w-wrapper {
+  margin-bottom: 10px;
+}
+
+.location {
+  font-size: 40px;
+  margin-bottom: 10px;
+  color: white;
+}
+
+.w-name {
+  font-size: 20px;
+  color: white;
+}
+
+.w-icon {
+  width: 120px;
+  height: 120px;
+}
+
+.last-sync {
+  margin-top: 50px;
+  color: white;
+}
