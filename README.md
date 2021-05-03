@@ -1,5 +1,5 @@
 # SyncWeather
-Simple Ionic App to display current weather conditional based on device location
+Simple Ionic App to display current weather forecast based on device location
 
 This app is build using the [OpenWeatherMap API](http://openweathermap.org/API).
 
