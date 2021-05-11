@@ -59,10 +59,9 @@ const Weather: React.FC<Props> = () => {
     setShowLoading(true);
     let apiUrl = API_URL;
     const coordinates = await Geolocation.getCurrentPosition();
-
-    /* if(coordinates && coordinates.coords && coordinates.coords.latitude ) {
+    if(coordinates && coordinates.coords && coordinates.coords.latitude ) {
       apiUrl  =  `https://api.openweathermap.org/data/2.5/weather?lat=${coordinates.coords.latitude}&lon=${coordinates.coords.longitude}&appid=${API_KEY}&units=metric`;
-    } */
+    }
     return axios({
       url: apiUrl,
       method: 'get'
