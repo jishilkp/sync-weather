@@ -14,6 +14,7 @@ const PoweredBy: React.FC<ContainerProps> = () => {
       <IonFooter className="powered-by">
         <IonToolbar>
           <IonTitle color="light">SyncWeather</IonTitle>
+          <IonTitle color="light" size="small">Ver 1.1</IonTitle>
           <IonTitle color="light" size="small">© Jishil K P</IonTitle>
         </IonToolbar>
       </IonFooter>

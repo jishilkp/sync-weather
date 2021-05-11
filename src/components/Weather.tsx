@@ -1,6 +1,7 @@
 import './Weather.css';
 import {
-  useIonViewDidEnter
+  useIonViewDidEnter,
+  useIonAlert
 } from '@ionic/react';
 import React from 'react';
 import axios from 'axios';
@@ -41,6 +42,20 @@ const Weather: React.FC<Props> = () => {
   const [icon, setIcon] = React.useState("https://static.thenounproject.com/png/967229-200.png");
   const [lastSync, setLastSync] = React.useState("");
   const [showLoading, setShowLoading] = React.useState(false);
+  const [present] = useIonAlert();
+
+  const showLocationNotEnabledMessage = () => {
+    console.log("showLocationNotEnabledMessage");
+    present({
+      header: 'Location disabled',
+      message: 'Please enabled the GPS location of your device and try again.',
+      buttons: [
+        'OK'
+      ],
+      onDidDismiss: (e) => console.log('did dismiss'),
+    })
+  };
+
 
   const getWeatherDataFromStorage = async () => {
     const ret = await Storage.get({ key: LOCAL_STORAGE_KEY });
@@ -58,20 +73,28 @@ const Weather: React.FC<Props> = () => {
   const getWeatherFromApi = async () => {
     setShowLoading(true);
     let apiUrl = API_URL;
-    const coordinates = await Geolocation.getCurrentPosition();
-    if(coordinates && coordinates.coords && coordinates.coords.latitude ) {
-      apiUrl  =  `https://api.openweathermap.org/data/2.5/weather?lat=${coordinates.coords.latitude}&lon=${coordinates.coords.longitude}&appid=${API_KEY}&units=metric`;
-    }
-    return axios({
-      url: apiUrl,
-      method: 'get'
-    }).then(response => {
-      setShowLoading(false);
-      return response.data;
-    },(error) => {
+    try {
+      const coordinates = await Geolocation.getCurrentPosition();
+      if(coordinates && coordinates.coords && coordinates.coords.latitude ) {
+        apiUrl  =  `https://api.openweathermap.org/data/2.5/weather?lat=${coordinates.coords.latitude}&lon=${coordinates.coords.longitude}&appid=${API_KEY}&units=metric`;
+      }
+      return axios({
+        url: apiUrl,
+        method: 'get'
+      }).then(response => {
+        setShowLoading(false);
+        return response.data;
+      },(error) => {
+        setShowLoading(false);
+        console.log(error);
+      });
+    } catch(error) {
+     // alert("XXX "+error);
+      showLocationNotEnabledMessage();
       setShowLoading(false);
       console.log(error);
-    });
+    }
+
   };
 
   const formatData = (wData: any) => {
